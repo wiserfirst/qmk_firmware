@@ -12,6 +12,12 @@
 #define PRESS(keycode) register_code16(keycode)
 #define RELEASE(keycode) unregister_code16(keycode)
 
+#define ORYX_CONFIGURATOR
+#define DISABLE_RGB_MATRIX_DIGITAL_RAIN
+#define DISABLE_RGB_MATRIX_ALPHAS_MODS
+#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#define DISABLE_RGB_MATRIX_RAINDROPS
+
 uint16_t VIM_QUEUE = KC_NO;
 
 enum custom_keycodes {
