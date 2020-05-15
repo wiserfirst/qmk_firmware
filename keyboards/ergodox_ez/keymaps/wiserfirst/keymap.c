@@ -12,52 +12,6 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* Normal mode
-  *
-  * ,----------------------------------------------------.           ,-----------------------------------------------------.
-  * |        |      |      |      |      |      |        |           |        |      |      |      |      |       |        |
-  * |--------+------+------+------+------+---------------|           |--------+------+------+------+------+-------+--------|
-  * |  TAB   |      | WORD |  END |      |      | INSERT |           | SYMBOL | YANK | UNDO |INSERT| OPEN |  PUT  |        |
-  * |--------+------+------+------+------+------|        |           |        |------+------+------+------+-------+--------|
-  * |    ⎋   |APPEND|      |  DEL |      |      |--------|           |--------|  ←   |  ↓   |  ↑   |  →   | MOUSE |    ⎋   |
-  * |--------+------+------+------+------+------|        |           |        |------+------+------+------+-------+--------|
-  * | SHIFT  |      |      |      |VISUAL| BACK | MOUSE  |           |        |      |      |      |      |       | SHIFT  |
-  * `--------+------+------+------+------+---------------'           `---------------+------+------+------+-------+--------'
-  *   | CTL  |OPTION| CMD  |      |      |                                           |      |      |      |       | PAIR |
-  *   `----------------------------------'                                           `-----------------------------------'
-  *                                      ,-----------------.       ,-----------------.
-  *                                      | OPTION |  CMD   |       |  COMMAND |OPTION|
-  *                               ,------|--------|--------|       |----------+------+-------.
-  *                               | BSPC |        |  HOME  |       |  PG UP   |      | SPACE |
-  *                               |      | DELETE |--------|       |----------|ENTER |       |
-  *                               |   ⌘  |        |  END   |       |  PG DOWN |      |   ⌘   |
-  *                               `------------------------'       `-------------------------'
-  */
-  [NORMAL_MODE] = LAYOUT_ergodox(
-    // Layer 2 Left Hand
-    X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,
-    KC_TAB ,X_____X,VIM_W,  VIM_E  ,X_____X,X_____X,INS_MOD,
-    X_____X,VIM_A  ,VIM_S  ,VIM_D  ,X_____X,X_____X,
-    KC_LSFT,X_____X,VIM_X  ,VIM_C  ,VIM_V  ,VIM_B  ,MSE_MOD,
-    KC_LCTL,KC_LALT,KC_LGUI,X_____X,X_____X,
-
-                                                             KC_LALT,KC_LGUI,
-                                                                     KC_HOME,
-                                            GUI_T(KC_BSPC),  KC_DEL ,KC_END ,
-
-
-    // Layer 2 Right Hand
-                              X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,
-                              SYM_MOD,VIM_Y  ,VIM_U  ,VIM_I  ,VIM_O  ,VIM_P  ,X_____X,
-                                      VIM_H  ,VIM_J  ,VIM_K  ,VIM_L  ,MSE_MOD,X_____X,
-                              X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,KC_RSFT,
-                                              X_____X,X_____X,X_____X,KC_RALT,KC_RCTL,
-
-    KC_RGUI, KC_RALT,
-    KC_PGUP,
-    KC_PGDN, KC_ENT, GUI_T(KC_SPC)
-),
-
   /* Insert mode
   *
   * ,----------------------------------------------------.           ,----------------------------------------------------.
@@ -151,6 +105,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,
     _______,_______,_______
   ),
+
+  /* Normal mode
+  *
+  * ,----------------------------------------------------.           ,-----------------------------------------------------.
+  * |        |      |      |      |      |      |        |           |        |      |      |      |      |       |        |
+  * |--------+------+------+------+------+---------------|           |--------+------+------+------+------+-------+--------|
+  * |  TAB   |      | WORD |  END |      |      | INSERT |           | SYMBOL | YANK | UNDO |INSERT| OPEN |  PUT  |        |
+  * |--------+------+------+------+------+------|        |           |        |------+------+------+------+-------+--------|
+  * |    ⎋   |APPEND|      |  DEL |      |      |--------|           |--------|  ←   |  ↓   |  ↑   |  →   | MOUSE |    ⎋   |
+  * |--------+------+------+------+------+------|        |           |        |------+------+------+------+-------+--------|
+  * | SHIFT  |      |      |      |VISUAL| BACK | MOUSE  |           |        |      |      |      |      |       | SHIFT  |
+  * `--------+------+------+------+------+---------------'           `---------------+------+------+------+-------+--------'
+  *   | CTL  |OPTION| CMD  |      |      |                                           |      |      |      |       | PAIR |
+  *   `----------------------------------'                                           `-----------------------------------'
+  *                                      ,-----------------.       ,-----------------.
+  *                                      | OPTION |  CMD   |       |  COMMAND |OPTION|
+  *                               ,------|--------|--------|       |----------+------+-------.
+  *                               | BSPC |        |  HOME  |       |  PG UP   |      | SPACE |
+  *                               |      | DELETE |--------|       |----------|ENTER |       |
+  *                               |   ⌘  |        |  END   |       |  PG DOWN |      |   ⌘   |
+  *                               `------------------------'       `-------------------------'
+  */
+  [NORMAL_MODE] = LAYOUT_ergodox(
+    // Layer 2 Left Hand
+    X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,
+    KC_TAB ,X_____X,VIM_W,  VIM_E  ,X_____X,X_____X,X_____X,
+    X_____X,VIM_A  ,VIM_S  ,VIM_D  ,X_____X,X_____X,
+    KC_LSFT,X_____X,VIM_X  ,VIM_C  ,VIM_V  ,VIM_B  ,MSE_MOD,
+    KC_LCTL,KC_LALT,KC_LGUI,X_____X,X_____X,
+
+                                                             KC_LALT,KC_LGUI,
+                                                                     KC_HOME,
+                                            GUI_T(KC_BSPC),  KC_DEL ,KC_END ,
+
+
+    // Layer 2 Right Hand
+                              X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,
+                              SYM_MOD,VIM_Y  ,VIM_U  ,VIM_I  ,VIM_O  ,VIM_P  ,X_____X,
+                                      VIM_H  ,VIM_J  ,VIM_K  ,VIM_L  ,MSE_MOD,X_____X,
+                              X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,KC_RSFT,
+                                              X_____X,X_____X,X_____X,KC_RALT,KC_RCTL,
+
+    KC_RGUI, KC_RALT,
+    KC_PGUP,
+    KC_PGDN, KC_ENT, GUI_T(KC_SPC)
+),
+
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -225,7 +226,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case VIM_I:
       if (record->event.pressed) {
         switch (VIM_QUEUE) {
-          case KC_NO: layer_on(INSERT_MODE); break;
+          case KC_NO: layer_move(INSERT_MODE); break;
           case VIM_C: VIM_LEADER(VIM_CI); break;
           case VIM_D: VIM_LEADER(VIM_DI); break;
           case VIM_V: VIM_LEADER(VIM_VI); break;

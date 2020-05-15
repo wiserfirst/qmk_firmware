@@ -4,10 +4,10 @@
 #include "quantum.h"
 #include "quantum_keycodes.h"
 
-#define NOR_MOD TO(NORMAL_MODE)
+#define NOR_MOD TG(NORMAL_MODE)
 #define INS_MOD TO(INSERT_MODE)
-#define SYM_MOD TO(SYMB)
-#define MSE_MOD TO(MOUSE)
+#define SYM_MOD TG(SYMB)
+#define MSE_MOD TG(MOUSE)
 
 #define PRESS(keycode) register_code16(keycode)
 #define RELEASE(keycode) unregister_code16(keycode)
@@ -152,7 +152,7 @@ void VIM_LEADER(uint16_t keycode) {
 void VIM_APPEND(void) {
   print("\e[31ma\e[0m");
   TAP(KC_RIGHT);
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -212,7 +212,7 @@ void VIM_OPEN(void) {
   VIM_LEADER(KC_NO);
   CMD(KC_RIGHT);
   TAP(KC_ENTER);
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -257,7 +257,7 @@ void VIM_SUBSTITUTE(void) {
   VIM_LEADER(KC_NO);
   SHIFT(KC_RIGHT);
   CMD(KC_X);
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -339,7 +339,7 @@ void VIM_APPEND_LINE(void) {
   print("\e[31mA\e[0m");
   VIM_LEADER(KC_NO);
   CMD(KC_RIGHT);
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -350,7 +350,7 @@ void VIM_CHANGE_LINE(void) {
   print("\e[31mC\e[0m");
   VIM_LEADER(KC_NO);
   VIM_DELETE_LINE();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -388,7 +388,7 @@ void VIM_OPEN_ABOVE(void) {
   CMD(KC_LEFT);
   TAP(KC_ENTER);
   TAP(KC_UP);
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -558,7 +558,7 @@ void VIM_CHANGE_BACK(void) {
   print("\e[31mb\e[0m");
   VIM_LEADER(KC_NO);
   VIM_DELETE_BACK();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -569,7 +569,7 @@ void VIM_CHANGE_DOWN(void) {
   print("\e[31mj\e[0m");
   VIM_LEADER(KC_NO);
   VIM_DELETE_DOWN();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -581,7 +581,7 @@ void VIM_CHANGE_END(void) {
   print("\e[31mce\e[0m");
   VIM_LEADER(KC_NO);
   VIM_DELETE_END();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -592,7 +592,7 @@ void VIM_CHANGE_LEFT(void) {
   print("\e[31mch\e[0m");
   VIM_LEADER(KC_NO);
   VIM_DELETE_LEFT();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -602,7 +602,7 @@ void VIM_CHANGE_LEFT(void) {
 void VIM_CHANGE_RIGHT(void) {
   print("\e[31mcl\e[0m");
   VIM_DELETE_RIGHT();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -612,7 +612,7 @@ void VIM_CHANGE_RIGHT(void) {
 void VIM_CHANGE_UP(void) {
   print("\e[31mck\e[0m");
   VIM_DELETE_UP();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /**
@@ -624,7 +624,7 @@ void VIM_CHANGE_WORD(void) {
   print("\e[31mcw\e[0m");
   VIM_LEADER(KC_NO);
   VIM_DELETE_WORD();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /***
@@ -645,7 +645,7 @@ void VIM_CHANGE_WORD(void) {
 void VIM_CHANGE_INNER_WORD(void) {
   print("\e[31mciw\e[0m");
   VIM_DELETE_INNER_WORD();
-  layer_on(INSERT_MODE);
+  layer_move(INSERT_MODE);
 }
 
 /***
