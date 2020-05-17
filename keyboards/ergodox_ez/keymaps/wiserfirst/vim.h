@@ -12,12 +12,6 @@
 #define PRESS(keycode) register_code16(keycode)
 #define RELEASE(keycode) unregister_code16(keycode)
 
-#define ORYX_CONFIGURATOR
-#define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-#define DISABLE_RGB_MATRIX_ALPHAS_MODS
-#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#define DISABLE_RGB_MATRIX_RAINDROPS
-
 uint16_t VIM_QUEUE = KC_NO;
 
 enum custom_keycodes {
@@ -46,9 +40,37 @@ enum custom_keycodes {
   EPRM,
   VRSN,
   RGB_SLD,
-  HSV_172_255_255,
-  HSV_86_255_128,
-  HSV_27_255_255,
+  LED_BLU, // HSV_172_255_255
+  LED_GRN, // HSV_86_255_128
+  LED_RED, // HSV_0_255_255
+  LEG_ORANGE, // HSV_27_255_255
+  CLAP,
+  COFFEE,
+  D_ARROW,
+  D_PANE,
+  ENGLISH,
+  CHINESE,
+  LAUGH,
+  L_ARROW,
+  L_ERB,
+  L_PANE,
+  MINUS_ONE,
+  MONOSNAP,
+  NEUTRAL,
+  NOT_EQUALS,
+  NUM,
+  PLUS_ONE,
+  R_ARROW,
+  R_ERB,
+  R_PANE,
+  SAD,
+  SINGLE_ARROW,
+  SMILE,
+  SPERMY,
+  TROLL,
+  U_ARROW,
+  U_PANE,
+  WINK
 };
 
 void VIM_APPEND(void);
