@@ -6,9 +6,20 @@
 
 #define VERSION_STRING QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION
 #define X_____X KC_TRNS
-#define ___X___ KC_TRNS
+#define ___X___ KC_NO
 #define KC_ATM LGUI(LSFT(KC_P))
 #define KC_ATP LGUI(LCTL(KC_P))
+
+#define L_ITERM LGUI(KC_LEFT)
+#define R_ITERM LGUI(KC_RIGHT)
+
+#define L_PANE LGUI(LALT(KC_LEFT))
+#define R_PANE LGUI(LALT(KC_RIGHT))
+#define U_PANE LGUI(LALT(KC_UP))
+#define D_PANE LGUI(LALT(KC_DOWN))
+
+#define SW_INPT LCTL(KC_SPACE)
+
 #define TO_NORM TO(NORMAL_MODE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -113,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___X___,___X___,___X___,___X___,___X___,___X___,SYM_MOD,
     ___X___,___X___,___X___,KC_BTN1,KC_BTN2,
 
-                                                                ENGLISH,CHINESE,
+                                                                SW_INPT,_______,
                                                                         _______,
                                                         KC_BTN1,KC_BTN2,_______,
 
@@ -353,24 +364,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(":arrow_down:");
         return false;
 
-      case D_PANE:
-        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI));
-        SEND_STRING(SS_TAP(X_DOWN));
-        SEND_STRING(SS_UP(X_LGUI)SS_UP(X_LALT));
-        return false;
-
-      case ENGLISH:
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT));
-        SEND_STRING(SS_TAP(X_SCOLON));
-        SEND_STRING(SS_UP(X_LCTRL)SS_UP(X_LSHIFT));
-        return false;
-
-      case CHINESE:
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT));
-        SEND_STRING(SS_TAP(X_J));
-        SEND_STRING(SS_UP(X_LCTRL)SS_UP(X_LSHIFT));
-        return false;
-
       case LAUGH:
         SEND_STRING(":joy:");
         return false;
@@ -381,12 +374,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       case L_ERB:
         SEND_STRING("<%=");
-        return false;
-
-      case L_PANE:
-        PRESS(KC_LGUI);
-        ALT(KC_LEFT);
-        RELEASE(KC_LGUI);
         return false;
 
       case MINUS_ONE:
@@ -413,12 +400,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("%>");
         return false;
 
-      case R_PANE:
-        PRESS(KC_LGUI);
-        ALT(KC_RIGHT);
-        RELEASE(KC_LGUI);
-        return false;
-
       case SAD:
         SEND_STRING(":disappointed:");
         return false;
@@ -435,22 +416,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(":arrow_up:");
         return false;
 
-      case U_PANE:
-        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI));
-        SEND_STRING(SS_TAP(X_UP));
-        SEND_STRING(SS_UP(X_LGUI)SS_UP(X_LALT));
-        return false;
-
       case WINK:
         SEND_STRING(":wink:");
-        return false;
-
-      case L_ITERM:
-        CMD(KC_LEFT);
-        return false;
-
-      case R_ITERM:
-        CMD(KC_RIGHT);
         return false;
     }
   }
