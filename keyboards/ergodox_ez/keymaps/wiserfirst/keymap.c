@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB , KC_Q,          KC_W,    KC_E,    KC_R,   KC_T, NOR_MOD,
     KC_ESC , LT(SYMB,KC_A), KC_S,    KC_D,    KC_F,   KC_G,
     KC_LSFT, KC_Z,          KC_X,    KC_C,    KC_V,   KC_B, SYM_MOD,
-    KC_LCTL, KC_LALT,       KC_LGUI, KC_LBRC, KC_RBRC,
+    KC_LCTL, KC_LALT,       KC_LGUI, L_ITERM, R_ITERM,
 
                                                                    KC_LGUI, KC_LALT,
                                                                             KC_HOME,
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___X___,___X___,___X___,___X___,___X___,___X___,SYM_MOD,
     ___X___,___X___,___X___,KC_BTN1,KC_BTN2,
 
-                                                                _______,_______,
+                                                                ENGLISH,CHINESE,
                                                                         _______,
                                                         KC_BTN1,KC_BTN2,_______,
 
@@ -190,128 +190,110 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) |
                  (keyboard_report->mods & MOD_BIT(KC_RSFT));
 
-  switch (keycode) {
-    case VIM_A:
-      if (record->event.pressed) { SHIFTED ? VIM_APPEND_LINE() : VIM_APPEND(); }
-      return false;
+  if (record->event.pressed) {
+    switch (keycode) {
+      case VIM_A:
+        SHIFTED ? VIM_APPEND_LINE() : VIM_APPEND();
+        return false;
 
-    case VIM_B:
-      if (record->event.pressed) {
+      case VIM_B:
         switch(VIM_QUEUE) {
           case KC_NO: VIM_BACK(); break;
           case VIM_C: VIM_CHANGE_BACK(); break;
           case VIM_D: VIM_DELETE_BACK(); break;
           case VIM_V: VIM_VISUAL_BACK(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_C:
-      if (record->event.pressed) {
+      case VIM_C:
         switch(VIM_QUEUE) {
           case KC_NO: SHIFTED ? VIM_CHANGE_LINE() : VIM_LEADER(VIM_C); break;
           case VIM_C: VIM_CHANGE_WHOLE_LINE(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_D:
-      if (record->event.pressed) {
+      case VIM_D:
         switch(VIM_QUEUE) {
           case KC_NO: SHIFTED ? VIM_DELETE_LINE() : VIM_LEADER(VIM_D); break;
           case VIM_D: VIM_DELETE_WHOLE_LINE(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_E:
-      if (record->event.pressed) {
+      case VIM_E:
         switch (VIM_QUEUE) {
           case KC_NO: VIM_END(); break;
           case VIM_C: VIM_CHANGE_END(); break;
           case VIM_D: VIM_DELETE_END(); break;
           case VIM_V: VIM_VISUAL_END(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_H:
-      if (record->event.pressed) {
+      case VIM_H:
         switch (VIM_QUEUE) {
           case KC_NO: VIM_LEFT(); break;
           case VIM_C: VIM_CHANGE_LEFT(); break;
           case VIM_D: VIM_DELETE_LEFT(); break;
           case VIM_V: VIM_VISUAL_LEFT(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_I:
-      if (record->event.pressed) {
+      case VIM_I:
         switch (VIM_QUEUE) {
           case KC_NO: layer_move(INSERT_MODE); break;
           case VIM_C: VIM_LEADER(VIM_CI); break;
           case VIM_D: VIM_LEADER(VIM_DI); break;
           case VIM_V: VIM_LEADER(VIM_VI); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_J:
-      if (record->event.pressed) {
+      case VIM_J:
         switch (VIM_QUEUE) {
           case KC_NO: SHIFTED ? VIM_JOIN() : VIM_DOWN(); break;
           case VIM_C: VIM_CHANGE_DOWN(); break;
           case VIM_D: VIM_DELETE_DOWN(); break;
           case VIM_V: VIM_VISUAL_DOWN(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_K:
-      if (record->event.pressed) {
+      case VIM_K:
         switch (VIM_QUEUE) {
           case KC_NO: VIM_UP(); break;
           case VIM_C: VIM_CHANGE_UP(); break;
           case VIM_D: VIM_DELETE_UP(); break;
           case VIM_V: VIM_VISUAL_UP(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_L:
-      if (record->event.pressed) {
+      case VIM_L:
         switch (VIM_QUEUE) {
           case KC_NO: VIM_RIGHT(); break;
           case VIM_C: VIM_CHANGE_RIGHT(); break;
           case VIM_D: VIM_DELETE_RIGHT(); break;
           case VIM_V: VIM_VISUAL_RIGHT(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_O:
-      if (record->event.pressed) { SHIFTED ? VIM_OPEN_ABOVE() : VIM_OPEN(); }
-      return false;
+      case VIM_O:
+        SHIFTED ? VIM_OPEN_ABOVE() : VIM_OPEN();
+        return false;
 
-    case VIM_P:
-      if (record->event.pressed) { SHIFTED ? VIM_PUT_BEFORE() : VIM_PUT(); }
-      return false;
+      case VIM_P:
+        SHIFTED ? VIM_PUT_BEFORE() : VIM_PUT();
+        return false;
 
-    case VIM_S:
-      if (record->event.pressed) { SHIFTED ? VIM_CHANGE_WHOLE_LINE() : VIM_SUBSTITUTE(); }
-      return false;
+      case VIM_S:
+        SHIFTED ? VIM_CHANGE_WHOLE_LINE() : VIM_SUBSTITUTE();
+        return false;
 
-    case VIM_U:
-      if (record->event.pressed) { VIM_UNDO(); }
-      return false;
+      case VIM_U:
+        VIM_UNDO();
+        return false;
 
-    case VIM_V:
-      if (record->event.pressed) { VIM_LEADER(VIM_V); }
-      return false;
+      case VIM_V:
+        VIM_LEADER(VIM_V);
+        return false;
 
-    case VIM_W:
-      if (record->event.pressed) {
+      case VIM_W:
         switch (VIM_QUEUE) {
           case KC_NO: VIM_WORD(); break;
           case VIM_C: VIM_CHANGE_WORD(); break;
@@ -321,210 +303,157 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           case VIM_V: VIM_VISUAL_WORD(); break;
           case VIM_VI: VIM_VISUAL_INNER_WORD(); break;
         }
-      }
-      return false;
+        return false;
 
-    case VIM_X:
-      if (record->event.pressed) { VIM_CUT(); }
-      return false;
+      case VIM_X:
+        VIM_CUT();
+        return false;
 
-    case VIM_Y:
-      if (record->event.pressed) { SHIFTED ? VIM_YANK_LINE() : VIM_YANK(); }
-      return false;
+      case VIM_Y:
+        SHIFTED ? VIM_YANK_LINE() : VIM_YANK();
+        return false;
 
-    // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) { eeconfig_init(); }
-      return false;
+        // dynamically generate these.
+      case EPRM:
+        eeconfig_init();
+        return false;
 
-    case VRSN:
-      if (record->event.pressed) { SEND_STRING(VERSION_STRING); }
-      return false;
+      case VRSN:
+        SEND_STRING(VERSION_STRING);
+        return false;
 
-    case RGB_SLD:
-      if (record->event.pressed) { rgblight_mode(1); }
-      return false;
+      case RGB_SLD:
+        rgblight_mode(1);
+        return false;
 
-    case LED_BLU:
-      if (record->event.pressed) {
+      case LED_BLU:
         rgblight_mode(1);
         rgblight_sethsv(172,255,255);
-      }
-      return false;
+        return false;
 
-    case LED_GRN:
-      if (record->event.pressed) {
+      case LED_GRN:
         rgblight_mode(1);
         rgblight_sethsv(86,255,128);
-      }
-      return false;
+        return false;
 
-    case LED_RED:
-      if (record->event.pressed) {
+      case LED_RED:
         rgblight_mode(1);
         rgblight_sethsv(0,255,255);
-      }
-      return false;
+        return false;
 
-    case CLAP:
-      if (record->event.pressed) {
+      case CLAP:
         SEND_STRING(":clap:");
-      }
-      return false;
+        return false;
 
-    case COFFEE:
-      if (record->event.pressed) {
+      case COFFEE:
         SEND_STRING(":coffee:");
-      }
-      return false;
+        return false;
 
-    case D_ARROW:
-      if (record->event.pressed) {
+      case D_ARROW:
         SEND_STRING(":arrow_down:");
-      }
-      return false;
+        return false;
 
-    case D_PANE:
-      if (record->event.pressed) {
+      case D_PANE:
         SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI));
         SEND_STRING(SS_TAP(X_DOWN));
         SEND_STRING(SS_UP(X_LGUI)SS_UP(X_LALT));
-      }
-      return false;
+        return false;
 
-    case ENGLISH:
-      if (record->event.pressed) {
+      case ENGLISH:
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT));
         SEND_STRING(SS_TAP(X_SCOLON));
         SEND_STRING(SS_UP(X_LCTRL)SS_UP(X_LSHIFT));
-      }
-      return false;
+        return false;
 
-    case CHINESE:
-      if (record->event.pressed) {
+      case CHINESE:
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT));
         SEND_STRING(SS_TAP(X_J));
         SEND_STRING(SS_UP(X_LCTRL)SS_UP(X_LSHIFT));
-      }
-      return false;
+        return false;
 
-    case LAUGH:
-      if (record->event.pressed) {
+      case LAUGH:
         SEND_STRING(":joy:");
-      }
-      return false;
+        return false;
 
-    case L_ARROW:
-      if (record->event.pressed) {
+      case L_ARROW:
         SEND_STRING(":arrow_left:");
-      }
-      return false;
+        return false;
 
-    case L_ERB:
-      if (record->event.pressed) {
+      case L_ERB:
         SEND_STRING("<%=");
-      }
-      return false;
+        return false;
 
-    case L_PANE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI));
-        SEND_STRING(SS_TAP(X_LEFT));
-        SEND_STRING(SS_UP(X_LGUI)SS_UP(X_LALT));
-      }
-      return false;
+      case L_PANE:
+        PRESS(KC_LGUI);
+        ALT(KC_LEFT);
+        RELEASE(KC_LGUI);
+        return false;
 
-    case MINUS_ONE:
-      if (record->event.pressed) {
+      case MINUS_ONE:
         SEND_STRING(":-1:");
-      }
-      return false;
+        return false;
 
-    case NEUTRAL:
-      if (record->event.pressed) {
+      case NEUTRAL:
         SEND_STRING(":neutral:");
-      }
-      return false;
+        return false;
 
-    case NOT_EQUALS:
-      if (record->event.pressed) {
+      case NOT_EQUALS:
         SEND_STRING("!=");
-      }
-      return false;
+        return false;
 
-    case PLUS_ONE:
-      if (record->event.pressed) {
+      case PLUS_ONE:
         SEND_STRING(":+1:");
-      }
-      return false;
+        return false;
 
-    case R_ARROW:
-      if (record->event.pressed) {
+      case R_ARROW:
         SEND_STRING(":arrow_right:");
-      }
-      return false;
+        return false;
 
-    case R_ERB:
-      if (record->event.pressed) {
+      case R_ERB:
         SEND_STRING("%>");
-      }
-      return false;
+        return false;
 
-    case R_PANE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI));
-        SEND_STRING(SS_TAP(X_RIGHT));
-        SEND_STRING(SS_UP(X_LGUI)SS_UP(X_LALT));
-      }
-      return false;
+      case R_PANE:
+        PRESS(KC_LGUI);
+        ALT(KC_RIGHT);
+        RELEASE(KC_LGUI);
+        return false;
 
-    case SAD:
-      if (record->event.pressed) {
+      case SAD:
         SEND_STRING(":disappointed:");
-      }
-      return false;
+        return false;
 
-    case SMILE:
-      if (record->event.pressed) {
+      case SMILE:
         SEND_STRING(":smile:");
-      }
-      return false;
+        return false;
 
-    case TROLL:
-      if (record->event.pressed) {
+      case TROLL:
         SEND_STRING(":trollface:");
-      }
-      return false;
+        return false;
 
-    case U_ARROW:
-      if (record->event.pressed) {
+      case U_ARROW:
         SEND_STRING(":arrow_up:");
-      }
-      return false;
+        return false;
 
-    case U_PANE:
-      if (record->event.pressed) {
+      case U_PANE:
         SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI));
         SEND_STRING(SS_TAP(X_UP));
         SEND_STRING(SS_UP(X_LGUI)SS_UP(X_LALT));
-      }
-      return false;
+        return false;
 
-    case WINK:
-      if (record->event.pressed) {
+      case WINK:
         SEND_STRING(":wink:");
-      }
-      return false;
-  }
+        return false;
 
-  // End by clearing the queue unless keycode is a
-  // if ((record->event.pressed) &&
-  //     (keycode != VIM_I ||
-  //     keycode != VIM_C ||
-  //     keycode != VIM_D ||
-  //     keycode != VIM_V)) {
-  //   VIM_LEADER(KC_NO);
-  // }
+      case L_ITERM:
+        CMD(KC_LEFT);
+        return false;
+
+      case R_ITERM:
+        CMD(KC_RIGHT);
+        return false;
+    }
+  }
 
   return true;
 };
