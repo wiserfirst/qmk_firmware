@@ -7,16 +7,14 @@
 #define VERSION_STRING QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION
 #define X_____X KC_TRNS
 #define ___X___ KC_NO
-#define KC_ATM LGUI(LSFT(KC_P))
-#define KC_ATP LGUI(LCTL(KC_P))
 
-#define L_ITERM LGUI(KC_LEFT)
-#define R_ITERM LGUI(KC_RIGHT)
-
+/* GUI === CMD === WIN and ALT === OPT */
 #define L_PANE LGUI(LALT(KC_LEFT))
 #define R_PANE LGUI(LALT(KC_RIGHT))
-#define U_PANE LGUI(LALT(KC_UP))
-#define D_PANE LGUI(LALT(KC_DOWN))
+#define OPT_L LALT(KC_LEFT)
+#define OPT_R LALT(KC_RIGHT)
+#define CMD_L LCMD(KC_LEFT)
+#define CMD_R LCMD(KC_RIGHT)
 
 #define SW_INPT LCTL(KC_SPACE)
 
@@ -35,11 +33,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+------+------+------+------+------|        |           |        |------+------+------+------+------+--------|
   * |  SHIFT |   Z  |   X  |   C  |   V  |   B  | SYMBOL |           | SYMBOL |   N  |   M  |   ,  |   .  |   /  | SHIFT  |
   * `--------+------+------+------+------+---------------'           `---------------+------+------+------+------+--------'
-  *   | LCTL |   ⌥  | CMD  |  [   |   ]  |                                           |   ←  |   ↓  |   ↑  |   →  | Cmd~ |
+  *   | LCTL |   ⌥  | CMD  | CMD L| CMD R|                                           | L PN | R PN | OPT L| OPT R| Cmd~ |
   *   `----------------------------------'                                           `----------------------------------'
   *
   *                                      ,-----------------.       ,-----------------.
-  *                                      |  CMD   | OPTION |       | OPTION  | CMD   |
+  *                                      |   ←    |   →    |       |   ↓     |  ↑    |
   *                               ,------|--------|--------|       |---------+-------+-------.
   *                               |      |        |  HOME  |       | PG UP   |       |       |
   *                               | BSPC | DELETE |--------|       |---------| ENTER | SPACE |
@@ -48,32 +46,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [INSERT_MODE] = LAYOUT_ergodox(
     // Left Hand
-    KC_GRV , KC_1,          KC_2,    KC_3,    KC_4,   KC_5, LT(SYMB,KC_GRV),
-    KC_TAB , KC_Q,          KC_W,    KC_E,    KC_R,   KC_T, NOR_MOD,
-    KC_ESC , LT(SYMB,KC_A), KC_S,    KC_D,    KC_F,   KC_G,
-    KC_LSFT, KC_Z,          KC_X,    KC_C,    KC_V,   KC_B, SYM_MOD,
-    KC_LCTL, KC_LALT,       KC_LGUI, L_ITERM, R_ITERM,
+    KC_GRV , KC_1,          KC_2,    KC_3,  KC_4,  KC_5, LT(SYMB,KC_GRV),
+    KC_TAB , KC_Q,          KC_W,    KC_E,  KC_R,  KC_T, NOR_MOD,
+    KC_ESC , LT(SYMB,KC_A), KC_S,    KC_D,  KC_F,  KC_G,
+    KC_LSFT, KC_Z,          KC_X,    KC_C,  KC_V,  KC_B, SYM_MOD,
+    KC_LCTL, KC_LALT,       KC_LGUI, CMD_L, CMD_R,
 
-                                                                   KC_LGUI, KC_LALT,
+                                                                   KC_LEFT, KC_RGHT,
                                                                             KC_HOME,
                                                           KC_BSPC, KC_DEL , KC_END ,
 
     // Right Hand
-                              KC_EQUAL, KC_6, KC_7,    KC_8,    KC_9,   KC_0,              KC_MINS,
-                              MSE_MOD , KC_Y, KC_U,    KC_I,    KC_O,   KC_P,              KC_BSLS,
-                                        KC_H, KC_J,    KC_K,    KC_L,   LT(MOUSE,KC_SCLN), KC_QUOT,
-                              SYM_MOD , KC_N, KC_M,    KC_COMM, KC_DOT, KC_SLSH,           KC_RSFT,
-                                              L_PANE,  R_PANE,  U_PANE, D_PANE,            LGUI(KC_TILD),
+                              KC_EQUAL, KC_6, KC_7,   KC_8,    KC_9,   KC_0,              KC_MINS,
+                              MSE_MOD , KC_Y, KC_U,   KC_I,    KC_O,   KC_P,              KC_BSLS,
+                                        KC_H, KC_J,   KC_K,    KC_L,   LT(MOUSE,KC_SCLN), KC_QUOT,
+                              SYM_MOD , KC_N, KC_M,   KC_COMM, KC_DOT, KC_SLSH,           KC_RSFT,
+                                              L_PANE, R_PANE,  OPT_L,  OPT_R,             LGUI(KC_TILD),
 
-    KC_RALT, KC_RGUI,
+    KC_DOWN, KC_UP,
     KC_PGUP,
-    KC_PGDN, KC_ENT,  KC_SPC
+    KC_PGDN, KC_ENT, KC_SPC
   ),
 
   /* Symbol mode
   *
   * ,----------------------------------------------------.           ,----------------------------------------------------.
-  * | NORMAL |  F1  |  F2  |  F3  |  F4  |  F5  |  [x]   |           |  ATP   |  F6  |  F7  |  F8  |  F9  |  F10 |  F11   |
+  * | NORMAL |  F1  |  F2  |  F3  |  F4  |  F5  |  [x]   |           |  TROLL |  F6  |  F7  |  F8  |  F9  |  F10 |  F11   |
   * |--------+------+------+------+------+---------------|           |--------+------+------+------+------+------+--------|
   * |        |      |      |      |      |      | NORMAL |           |        | PG U |   [  |   {  | <%=  |COFFEE|  F12   |
   * |--------+------+------+------+------+------|        |           |        |------+------+------+------+------+--------|
